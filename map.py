@@ -1,6 +1,7 @@
+import os
+from os.path import join
+import json
 import folium
-
-
 
 # map object
 m = folium.Map(location=[44.647502, 20.291818], zoom_start=12)
@@ -14,8 +15,16 @@ tooltip5 = "Belgrade Fair . Click for more info! "
 tooltip6 = "Belgrade Racecourse. Click for more info! "
 tooltip7 = "Forex Stock Exchange Forum. Click for more info! "
 tooltip8 = "Restricted area. Click for more info! "
+tooltip9 = "Click for more info! "
+tooltip10 = "Kosutnjak Forest! "
 # icon marker
 Logo1 = folium.features.CustomIcon('forex_tr_19.png', icon_size=(35, 35))
+
+# vega
+visData = os.path.join('data', 'vis.json')
+
+# geo data
+geoOverlay =os.path.join('data', 'geoOverlay.json')
 # markers
 folium.Marker([44.818181, 20.294455],
               popup="Belgrade Nikola Tesla Airport is an international airport serving Belgrade. It is the largest airport in Serbia, situated 18 km west of downtown.",
@@ -53,7 +62,16 @@ folium.CircleMarker(
               color='#fc5628',
               fill=True,
               fill_color='#fc5628',
-              icon=Logo1).add_to(m)
+              icon=Logo1).add_to(m),
+# vis marker
+folium.Marker(
+              location=[44.829768, 20.433458],
+              tooltip=tooltip9,
+              popup=folium.Popup(max_width=550).add_child(folium.Vega(json.load(open(visData)), width=550, height=250))).add_to(m)
+
+# geo marker
+folium.GeoJson(geoOverlay,tooltip=tooltip10, name='Kosutnjak Forest', ).add_to(m)
+
 
 # generate HTML
 m.save("map.html")
