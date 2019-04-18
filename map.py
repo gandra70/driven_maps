@@ -13,7 +13,7 @@ tooltip4 = "High School of Electrical Engineering 'Nikola Tesla'. Click for more
 tooltip5 = "Belgrade Fair . Click for more info! "
 tooltip6 = "Belgrade Racecourse. Click for more info! "
 tooltip7 = "Forex Stock Exchange Forum. Click for more info! "
-
+tooltip8 = "Restricted area. Click for more info! "
 # icon marker
 Logo1 = folium.features.CustomIcon('forex_tr_19.png', icon_size=(35, 35))
 # markers
@@ -45,5 +45,15 @@ folium.Marker([44.814877, 20.455335],
               popup="Best Trading Community in SouthEast Europe.",
               tooltip=tooltip7,
               icon=Logo1).add_to(m),
+folium.CircleMarker(
+              location=[44.770493,20.469921],
+              radius=30,
+              popup="The Military Academy of the University of Defence is a training college devoted to military education and career development located in Belgrade, Serbia. ",
+              tooltip=tooltip8,
+              color='#fc5628',
+              fill=True,
+              fill_color='#fc5628',
+              icon=Logo1).add_to(m)
+
 # generate HTML
 m.save("map.html")
